@@ -1,0 +1,220 @@
+* {
+    box-sizing: border-box;
+  }
+  
+
+body{
+    font-family: sans-serif;
+    text-align: center;
+    margin: 0;
+    color:black;
+    
+}
+
+.header, .navbar, .section,.footer {
+    float: left;
+    width: 100%; /* The width is 100%, by default */
+  }
+  
+.header{
+    height: 100;
+    background-color:#fff;
+}
+.header .logo img{
+    float: left;
+}
+.header .logo p{
+    float: left;
+    width: 25%;
+    font-size: 20px;
+    color:#7E0524;
+}
+
+
+.navbar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #7E0524;
+  }
+  
+  .navbar li {
+    float: left;
+    border-right:1px solid #bbb;
+  }
+  
+  .navbar li:last-child {
+    border-right: none;
+  }
+  
+  .navbar li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+  }
+  
+  .navbar li a:hover:not(.active) {
+    background-color: #F09910;
+  }
+  
+  .navbar .active {
+    background-color: #F09910;
+  }
+  /* Use a media query to add a breakpoint at 800px: */
+  @media screen and (max-width: 800px) {
+    .left, .main, .right {
+      width: 100%; /* The width is 100%, when the viewport is 800px or smaller */
+    }
+  }
+
+
+.container {
+    margin: 0 ;
+    padding: 50px;  
+    border-radius:10px;
+    text-align: left;
+}
+
+/***********************Menu**************************/
+/*****************************************************/
+
+
+/* Create a column layout with Flexbox */
+.row {
+    display: flex;
+      
+  }
+  
+  /* Left column (menu) */
+  .left {
+    flex: 20%;
+    height: 100%;
+     margin: 0px; 
+     }
+  
+  .left h2 {
+    background-color: #fff;
+    margin: 0;
+    padding: 10px 0 10px 0;
+  }
+  
+  /* Right column (page content) */
+  .right {
+    flex: 85%;
+    padding: 15px;
+  }
+
+/*VERTICAL MENU*/
+nav.vertical{
+    position:relative;
+    background:#7E0524;
+    text-align: left;
+  }
+  
+  /* ALL UL */
+  nav.vertical ul{
+    list-style: none;
+    margin:0;
+
+  }
+  /* ALL LI */
+  nav.vertical li{
+    position:relative;
+  }
+  /* ALL A */
+  nav.vertical a{
+    display:block;
+    color:#eee;
+    text-decoration:none;
+    padding:10px 15px;
+    transition:0.2s;
+  }
+  /* ALL A HOVER */
+  nav.vertical li:hover > a{
+    background:#F09910;
+  }
+  
+  /* INNER UL HIDE */
+  nav.vertical ul ul{
+    background:rgba(0,0,0,0.1);
+    transition: max-height 0.2s ease-out;
+    max-height:0;
+    overflow:hidden;
+  }
+  /* INNER UL SHOW */
+  nav.vertical li:hover > ul{
+    max-height:500px;
+    transition: max-height 0.25s ease-in;
+  }
+  
+ .row{
+    margin-bottom: 5px;
+    padding-bottom: 10px;
+    position: relative;
+}
+
+h3{
+    background-color:rgb(238, 196, 68);
+    text-align:center;
+    padding: 10px; 
+
+
+}
+
+.form {
+    padding: 30px 40px;
+  }
+  
+  .form-control {
+    margin-bottom: 5px;
+    padding-bottom: 10px;
+    position: relative;
+  }
+  
+  .form-control label {
+    color: #000;
+    margin-bottom: 5px;
+  }
+  
+  .form-control input {
+    border: 2px solid rgb(185, 42, 42);
+    border-radius: 4px;
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    color: #000;
+  }
+  
+  .form-control input:focus {
+    outline: 0;
+    border-color: #000;
+    color: #000;
+  }
+ 
+  
+  .form button {
+    border: 2px solid #3498db;
+    border-radius: 10px;
+    color: #fff;
+    display: block;
+    font-size: 18px;
+    padding: 15px;
+    margin-top: 20px;
+    width: 100%;
+  }
+
+  
+.footer{
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #7E0524;
+    color: white;
+    text-align: center;
+}
+
+

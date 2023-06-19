@@ -1,0 +1,376 @@
+/* Set box-sizing to border-box for all elements */
+* {
+  box-sizing: border-box;
+}
+
+/* Set default styles for the body */
+body{
+  font-family: 'Work Sans', sans-serif;
+  text-align: center;
+  margin: 0;
+}
+
+/***********************Headers and Navbar**************************/
+/******************************************************************/
+
+/* Set styles for the header, navbar, sections, and footer */
+.header, .navbar, .section, .footer {
+  float: left;
+  width: 100%; /* The width is 100%, by default */
+}
+
+/* Set styles for the header */
+.header{
+  height: 100;
+  background-color: #fff;
+}
+
+/* Set styles for the logo in the header */
+.header .logo img{
+  float: left;
+}
+
+/* Set styles for the text in the logo in the header */
+.header .logo p{
+  float: left;
+  width: 25%;
+  font-size: 20px;
+  color:#7E0524;
+}
+
+/* Set styles for the navbar */
+.navbar ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #7E0524;
+}
+
+/* Set styles for the items in the navbar */
+.navbar li {
+  float: left;
+  border-right: 1px solid #bbb;
+}
+
+/* Set styles for the last item in the navbar */
+.navbar li:last-child {
+  border-right: none;
+}
+
+/* Set styles for the links in the navbar */
+.navbar li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+/* Set styles for the active link in the navbar */
+.navbar li a:hover:not(.active) {
+  background-color: #F09910;
+}
+
+/* Set styles for the active item in the navbar */
+.navbar .active {
+  background-color: #F09910;
+}
+
+/* Use a media query to add a breakpoint at 800px */
+@media screen and (max-width: 768px) {
+  /* Set the width of the left, main, and right sections to 100% when the viewport is 800px or smaller */
+  .left, .main, .right {
+    width: 100%;
+  }
+
+  /* Set the styles for the items in the navbar when the viewport is 800px or smaller */
+  .header .logo p {
+    float: left;
+    font-size: 15px;
+  }
+
+  /* Set the styles for the links in the navbar when the viewport is 800px or smaller */
+  .navbar li a {
+    padding: 8px 16px;
+  }
+
+  /* Set the styles for the active item in the navbar when the viewport is 800px or smaller */
+  .navbar .active {
+    background-color: #F09910;
+    color: white;
+  }
+}
+
+/* Set styles for the container */
+#container {
+  margin: 0 auto;
+  margin-top: 8%;
+  width: 30%;
+  height: auto;
+  padding: 50px 15px;
+  background-color: #F09910;
+  border-radius: 10px;
+}
+
+
+/***********************Menu**************************/
+/*****************************************************/
+
+
+/* Create a column layout with Flexbox */
+.row {
+    display: flex;
+      
+  }
+  
+  /* Left column (menu) */
+  .left {
+    flex: 15%;
+    height: 100%;
+     margin: 0px; 
+     }
+  
+  .left h2 {
+    background-color: #fff;
+    margin: 0;
+    padding: 10px 0 10px 0;
+  }
+  
+  /* Right column (page content) */
+  .right {
+    flex: 85%;
+    padding: 15px;
+  }
+
+/*VERTICAL MENU*/
+nav.vertical{
+    position:relative;
+    background:#7E0524;
+    text-align: left;
+  }
+  
+  /* ALL UL */
+  nav.vertical ul{
+    list-style: none;
+    margin:0;
+
+  }
+  /* ALL LI */
+  nav.vertical li{
+    position:relative;
+  }
+  /* ALL A */
+  nav.vertical a{
+    display:block;
+    color:#eee;
+    text-decoration:none;
+    padding:10px 15px;
+    transition:0.2s;
+    font-size: 12px;
+
+  }
+  /* ALL A HOVER */
+  nav.vertical li:hover > a{
+    background:#F09910;
+  }
+  
+  /* INNER UL HIDE */
+  nav.vertical ul ul{
+    background:rgba(0,0,0,0.1);
+    transition: max-height 0.2s ease-out;
+    max-height:0;
+    overflow:hidden;
+  }
+  /* INNER UL SHOW */
+  nav.vertical li:hover > ul{
+    max-height:500px;
+    transition: max-height 0.25s ease-in;
+  }
+  
+ .row{
+    margin-bottom: 5px;
+    padding-bottom: 10px;
+    position: relative;
+}
+
+h3{
+    background-color:#F09910;
+    text-align:left;
+    padding: 10px; 
+
+
+}
+
+
+label{
+    color: #FFF;
+    display: inline-block;;
+    /* width: 100px; */
+    font-size:1rem;
+
+}
+
+input[type="text"], input[type="password"], select{
+    width: 50%;
+    height: 30px;
+    border-radius:10px;
+    padding: 5px 10px;
+  border: none;
+    box-sizing: border-box;
+
+}   
+
+select{
+    color: black;
+}
+
+input{
+  color: black;
+}
+
+input[type="submit"]{
+    margin-top: 10px;
+    padding: 10px 40px;
+    font-weight: bold;
+    border-radius:10px;
+    border: 3px solid #7E0524;
+    background-color:#F09910;
+    color: #fff;
+
+}
+
+input[type="submit"]:hover{
+    background-color:#7E0524;
+
+}
+
+/************************* FAQ style ********************************/
+/******************************************************************/
+/* Style for the heading of the FAQ section */
+.faq-heading {
+  border-bottom: #777;
+  padding: 20px 60px;
+}
+
+/* Container for the FAQ section */
+.faq-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin-bottom: 50px;
+}
+
+/* Horizontal line for separating sections */
+.hr-line {
+  width: 40%;
+  margin: auto;
+}
+
+/* Style for the buttons that open and close the FAQ page */
+.faq-page {
+  /* background-color: #eee; */
+  color: #444;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 30px 20px;
+  width: 40%;
+  border: none;
+  outline: none;
+  transition: 0.4s;
+  margin: auto;
+  text-align: left;
+}
+
+/* Style for the FAQ page content */
+.faq-body {
+  margin: auto;
+  text-align: left;
+  width: 30%;
+  padding: auto;
+}
+
+/* Add a background color to the button when clicked or hovered over */
+.active,
+.faq-page:hover {
+  background-color: #F9F9F9;
+}
+
+/* Style for the FAQ page panel. Hidden by default */
+.faq-body {
+  padding: 0 18px;
+  background-color: white;
+  display: none;
+  overflow: hidden;
+}
+
+/* Plus sign icon next to the button */
+.faq-page:after {
+  content: '\02795';
+  /* Unicode character for "plus" sign (+) */
+  font-size: 13px;
+  color: #777;
+  float: right;
+  margin-left: 5px;
+}
+
+/* Minus sign icon next to the button when clicked */
+.active:after {
+  content: "\2796";
+  /* Unicode character for "minus" sign (-) */
+}
+/* Media query for smaller screens */
+@media screen and (max-width: 768px) {
+
+      /* Set the width of the left, main, and right sections to 100% when the viewport is 800px or smaller */
+      .left,
+      .main,
+      .right {
+          width: 100%;
+      }
+  
+      /* Set the styles for the items in the navbar when the viewport is 800px or smaller */
+      .header .logo p {
+          float: left;
+          font-size: 15px;
+      }
+  
+      /* Set the styles for the links in the navbar when the viewport is 800px or smaller */
+      .navbar li a {
+          padding: 8px 16px;
+      }
+  
+  /* Reduce the width and font size of the button */
+  .faq-page {
+      width: 70%;
+      font-size: 18px;
+  }
+
+  /* Reduce the width and font size of the FAQ page content */
+  .faq-body {
+      width: 60%;
+      font-size: 14px;
+  }
+
+  /* Adjust the padding of the FAQ heading */
+  .faq-heading {
+      padding: 20px 30px;
+  }
+
+  /* Adjust the width of the horizontal line */
+  .hr-line {
+      width: 60%;
+  }
+}
+
+.footer{
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #7E0524;
+    color: white;
+    text-align: center;
+}
+
+

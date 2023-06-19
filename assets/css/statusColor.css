@@ -1,0 +1,18 @@
+td.status {
+    padding: 5px;
+    font-weight: bold;
+}
+
+td.approved {
+    background-color: #009EFF;
+    color: white;
+}
+
+td.rejected {
+    background-color: #EB1D36;
+    color: white;
+}
+
+td.pending {
+    background-color: #FFE15D;
+}
