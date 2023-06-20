@@ -171,125 +171,55 @@ table {
 <body>
     <div id="chart"></div>
 
-    <script>
     <?php
-    
-    $sql = "SELECT c.clr_id,c.reason_for_clearance
-    FROM clearance c 
-    INNER JOIN fin_clearance_request r ON c.clr_id = r.clr_id";
-    
-    // Execute the query
-    $result = mysqli_query($connection, $sql);
-    
     // Variables to hold the counts
-    $completionCount = 0;
-    $transferCount = 0;
-    $withdrawalCount = 0;
-    $othersCount = 0;
-    
+    $gCertificateCount = 0;
+    $gDiplomaCount = 0;
+    $gBachelorCount = 0;
+    $gMasterCount = 0;
+    $gDoctoralCount = 0;
+    $year = 2023;
+   
+
+    $sql = "SELECT c.clr_id, c.levels, c.reason_for_clearance, r.updated_at
+    FROM clearance c 
+    INNER JOIN fin_clearance_request r ON c.clr_id = r.clr_id
+    WHERE c.reason_for_clearance = 'completion' AND YEAR(r.updated_at) = '$year' ";
+
+// Execute the query
+$result = mysqli_query($connection, $sql);
+
+    // Check for errors during query execution
+    if (!$result) {
+        die("Query failed: " . mysqli_error($connection));
+    }
+
     // Loop through the result set
     while ($row = mysqli_fetch_assoc($result)) {
-        $reason = $row['reason_for_clearance'];
-    
-        // Increment the respective count variable based on the reason
-        if ($reason == 'Completion') {
-            $completionCount++;
-        } elseif ($reason == 'Transfer') {
-            $transferCount++;
-        } elseif ($reason == 'Withdrawal') {
-            $withdrawalCount++;
+        $level = $row['levels'];
+
+        // Increment the respective count variable based on the level
+        if ($level == 'Diploma') {
+            $gDiplomaCount++;
+        } elseif ($level == 'Bachelor') {
+            $gBachelorCount++;
+        } elseif ($level == 'Master') {
+            $gMasterCount++;
+        } elseif ($level == 'Doctoral') {
+            $gDoctoralCount++;
         } else {
-            $othersCount++;
+            $gCertificateCount++;
         }
     }
     
-            ?>
-    //chart data 
-    var chartjson = {
-        "title": "Students Reasons for Clearances Statistics ",
-        "data": [{
-                "name": "Completion",
-                "score": <?php echo $completionCount;?>
-            },
-            {
-                "name": "Transfer",
-                "score": <?php echo $transferCount;?>
-            },
-            {
-                "name": "Widthdrawal",
-                "score": <?php echo $withdrawalCount;?>
-            },
-            {
-                "name": "Others",
-                "score": <?php echo $othersCount;?>
-            }
-        ],
-        "xtitle": "Reasons for clearances",
-        "ytitle": "Counts",
-        "ymax": 100,
-        "ykey": 'score',
-        "xkey": "name",
-        "prefix": "%"
-    }
-    //chart colors 
-    var colors = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve',
-        'thirteen', 'fourteen'
-    ];
-    //constants
-    var TROW = 'tr',
-        TDATA = 'td';
-    var chart = document.createElement('div');
-    //create the chart canvas 
-    var barchart = document.createElement('table');
-    //create the title row 
-    var titlerow = document.createElement(TROW);
-    //create the title data 
-    var titledata = document.createElement(TDATA);
-    //make the colspan to number of records 
-    titledata.setAttribute('colspan', chartjson.data.length + 1);
-    titledata.setAttribute('class', 'charttitle');
-    titledata.innerText = chartjson.title;
-    titlerow.appendChild(titledata);
-    barchart.appendChild(titlerow);
-    chart.appendChild(barchart);
-    //create the bar row 
-    var barrow = document.createElement(TROW);
-    //lets add data to the chart 
-    for (var i = 0; i < chartjson.data.length; i++) {
-        barrow.setAttribute('class', 'bars');
-        var prefix = chartjson.prefix || '';
-        //create the bar data 
-        var bardata = document.createElement(TDATA);
-        var bar = document.createElement('div');
-        bar.setAttribute('class', colors[i]);
-        bar.style.height = chartjson.data[i][chartjson.ykey] + prefix;
-        bardata.innerText = chartjson.data[i][chartjson.ykey] + prefix;
-        bardata.appendChild(bar);
-        barrow.appendChild(bardata);
-    }
-    //create legends 
-    var legendrow = document.createElement(TROW);
-    var legend = document.createElement(TDATA);
-    legend.setAttribute('class', 'legend');
-    legend.setAttribute('colspan', chartjson.data.length);
-    //add legend data 
-    for (var i = 0; i < chartjson.data.length; i++) {
-        var legbox = document.createElement('span');
-        legbox.setAttribute('class', 'legbox');
-        var barname = document.createElement('span');
-        barname.setAttribute('class', colors[i] + ' xaxisname');
-        var bartext = document.createElement('span');
-        bartext.innerText = chartjson.data[i][chartjson.xkey];
-        legbox.appendChild(barname);
-        legbox.appendChild(bartext);
-        legend.appendChild(legbox);
-    }
-    barrow.appendChild(legend);
-    barchart.appendChild(barrow);
-    barchart.appendChild(legendrow);
-    chart.appendChild(barchart);
-    document.getElementById('chart').innerHTML = chart.outerHTML;
-    </script>
+   echo $gCertificateCount . "<br>";
+   echo $gDiplomaCount . "<br>";
+   echo $gBachelorCount . "<br>";
+   echo $gMasterCount . "<br>";
+   echo $gDoctoralCount;
+ ?>
+
+
 </body>
 
 </html>
