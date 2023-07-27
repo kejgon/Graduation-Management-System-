@@ -1,20 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
 
 <head>
-    <!-- specifies the character encoding used on the page. In this case, it is set to UTF-8,
- which is a widely used character encoding that supports a wide 
- range of characters and scripts. -->
-    <meta charset="UTF-8">
-    <!-- sets the compatibility mode for Internet Explorer.
-    The value "IE=edge" tells IE to use the latest version of its rendering engine,
-    regardless of the document mode. -->
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <!-- sets the viewport settings for the page. The "width=device-width" 
-    tells the browser to set the width of the viewport to the width of the device. 
-    The "initial-scale=1.0" sets the initial zoom level of the page to 1.0, 
-    which means it is not zoomed in or out by default. -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>CUEAGMS</title>
 
 
@@ -65,13 +52,15 @@ body {
     color: #7E0524;
 }
 
+.navbar {
+    background-color: #7E0524;
+}
+
 /* Set styles for the navbar */
 .navbar ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
-    overflow: hidden;
-    background-color: #7E0524;
 }
 
 /* Set styles for the items in the navbar */
@@ -388,7 +377,7 @@ body {
     <!-- Footer -->
 
     <div class="footer">
-        <p><strong>©Copyright CUEAGMS</strong></p>
+        <p><strong> &copy; 2023 CUEAGMS</strong></p>
 
     </div>
 

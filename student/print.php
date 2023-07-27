@@ -1,10 +1,23 @@
 <?php
-require_once("../config.php");
 
+// Start a new PHP session and buffer the output
+session_start();
+ob_start();
 
+// Database connection details
+$host = "127.0.0.1";   // Server name or IP address where MySQL is running
+$user = "cueagmsAC";   // MySQL user name
+$password = "password";   // MySQL password
+$dbname = "cueagms";   // MySQL database name
 
+// Create a new MySQL connection using the above details
+$connection = mysqli_connect($host, $user, $password, $dbname);
 
-
+// Check if the connection was successful
+if ($connection === false) {
+    // If the connection failed, stop the script and display an error message
+    die("ERROR: Could not connect. " . mysqli_connect_error());
+}
 
 
 //! SETTING USERS ACCORDING TO CONDITIONS
@@ -14,12 +27,9 @@ if (isset($_SESSION['userRole']) != "Student") {
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>CATHOLIC UNIVERSITY OF EASTERN AFRICA GRADUATION MANAGEMENT SYSTEM REPORT</title>
 
 </head>

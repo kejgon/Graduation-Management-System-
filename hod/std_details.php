@@ -561,8 +561,8 @@ th {
 
 
 
-
 .feedback-button {
+    /* Styling for the feedback button */
     height: 35px;
     border: solid 3px #F09910;
     background: #F09910;
@@ -581,25 +581,22 @@ th {
 }
 
 #feedback-main {
+    /* Styling for the feedback main element */
     display: none;
     float: left;
     margin: 0px 10px 10px 10px;
     padding-bottom: 10px;
     border: 1px solid #ccc;
-
-
 }
 
 #feedback-main input[type=text] {
+    /* Styling for the input field inside the feedback main element */
     width: 90%;
     padding: 12px;
     margin-bottom: 5px;
     border: 1px solid rgb(168, 166, 166);
     border-radius: 4px;
     resize: vertical;
-
-
-
 }
 </style>
 
@@ -681,12 +678,14 @@ th {
 if (isset($_GET['id'])) {
     // Gets the student registration number from the URL
     $std_regNo = $_GET['id'];
+    $_SESSION['studentId'] = $std_regNo;
 
     // Query the database to get the student's details
     $query = "SELECT * FROM students WHERE std_regNo = '$std_regNo'";
     $result = mysqli_query($connection, $query);
     // Fetch the data
     $stdrow = mysqli_fetch_assoc($result);
+    $_SESSION['studentName'] =$stdrow['std_fullname'];
 
     // Query the database to get the student's clearance details
     $query = "SELECT * FROM clearance WHERE std_regNo = '$std_regNo'";
@@ -710,7 +709,6 @@ if (isset($_GET['id'])) {
         $transcript_message = "No transcript file uploaded by student.";
     }
 }
-mysqli_close($connection);
               
             
    
@@ -731,29 +729,20 @@ mysqli_close($connection);
                                 float: left;
                                  text-decoration: none;" href="clearanceRequests.php">Back</a>
                     </p>
+                    <p><a style="
+                                background-color: #F09910;
+                                color: white;
+                                padding: 12px 20px;
+                                margin-right:10px;
+                                border: none;
+                                border-radius: 10px;
+                                float: left;
+                                 text-decoration: none;"
+                            href="feedback.php?id={$_SESSION['studentId']}&fulnames={$_SESSION['studentName']}">Feedback</a>
+                    </p>
 
 
 
-                    <!-- ////! FEEDBACK -->
-                    <div id="feedback-main">
-                        <h1>Send feedback to student</h1>
-                        <form class="">
-                            <div class="">
-                                <label style="display:block; float:left;padding-left:10px;">To:</label><br>
-                                <input type="text" id="input-name" value="<?php echo $stdrow['std_fullname']; ?>">
-                                <input type="text" id="input-std_regNo" value="<?php echo $std_regNo; ?>"><br>
-                                <label style="display:block; float:left;padding-left:10px;">From:</label><br>
-                                <input type="text" id="input-from" value="<?php echo $_SESSION['fullname']; ?>">
-                            </div>
-                            <div class="">
-                                <textarea name="message" type="text" id="input-message"
-                                    placeholder="Message"></textarea>
-                            </div>
-                            <input type="submit" value="Submit" id="input-submit">
-                        </form>
-                    </div>
-
-                    <button id="popup" class="feedback-button" onclick="toggle_visibility()">Feedback</button>
 
 
 
@@ -842,12 +831,18 @@ mysqli_close($connection);
 
 
     <script>
+    // Function to toggle the visibility of an element
     function toggle_visibility() {
         var e = document.getElementById('feedback-main');
-        if (e.style.display == 'block')
+
+        // Check if the element is currently displayed
+        if (e.style.display == 'block') {
+            // If it is displayed, hide the element
             e.style.display = 'none';
-        else
+        } else {
+            // If it is hidden, display the element
             e.style.display = 'block';
+        }
     }
     </script>
 </body>

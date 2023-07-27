@@ -5,12 +5,17 @@
 session_start();
 ob_start(); //turning on output buffer ////? To prevent header() errors
 
+// Turn on output buffering
+// This function will turn output buffering on. While output buffering is 
+// active, no output is sent from the script (other than headers), instead the output is stored
+
 
 // database connection details
-$host = "localhost"; // server name or IP address where MySQL is running
-$user = "cueagmsac"; // MySQL user name
-$password = "password"; // MySQL password
-$dbname = "cueagms"; // MySQL database name
+
+$host="127.0.0.1";// server name or IP address where MySQL is running
+$user="cueagmsAC"; // MySQL user name
+$password="password";// MySQL password
+$dbname="cueagms"; // MySQL database name
 
 // create a new MySQL connection using the above details
 $connection = mysqli_connect($host, $user, $password, $dbname);
@@ -20,14 +25,22 @@ if ($connection === false) {
     // if the connection failed, stop the script and display an error message
     die("ERROR: Could not connect. " . mysqli_connect_error());
 }
+
+//! SETTING USERS ACCORDING TO CONDITIONS
+if (isset($_SESSION['userRole']) != "Registrar") {
+    header('Location: ../index.php');
+}
+
 ?>
 
 <!DOCTYPE html>
+<html lang="en">
 
 <head>
-
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CUEAGMS</title>
-
 
 </head>
 
@@ -325,6 +338,124 @@ td.pending {
     background-color: #FFE15D;
 }
 
+input[type=text],
+input[type=email],
+input[type=number],
+input[type=select],
+input[type=date],
+input[type=select],
+input[type=password],
+input[type=tel],
+select {
+    width: 45%;
+    padding: 12px;
+    border: 1px solid rgb(168, 166, 166);
+    border-radius: 4px;
+    resize: vertical;
+}
+
+
+
+input[type=radio],
+input[type=checkbox] {
+    width: 5%;
+    padding-left: 0%;
+    border: 1px solid rgb(168, 166, 166);
+    border-radius: 4px;
+    resize: vertical;
+}
+
+h1 {
+    font-family: Arial;
+    font-size: medium;
+    font-style: normal;
+    font-weight: bold;
+    color: brown;
+    text-align: center;
+    text-decoration: underline;
+}
+
+label {
+    padding: 12px 12px 12px 0;
+    display: inline-block;
+    color: black;
+}
+
+input[type=submit] {
+    border: 3px solid #7E0524;
+    background-color: #F09910;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    margin: 0 auto;
+    color: #fff;
+
+}
+
+input[type="submit"]:hover {
+    background-color: #7E0524;
+
+}
+
+.clearance-form {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    margin-bottom: 50px;
+    border: 1px solid #000;
+    padding: 20px;
+}
+
+.row {
+    color: #fff;
+
+}
+
+.box1 {
+    float: left;
+    width: 20%;
+    background-color: #2B3A55;
+    height: 100;
+    margin: 10px;
+    padding: 20px 40px;
+}
+
+.box2 {
+    float: left;
+    width: 20%;
+    background-color: #6B728E;
+    height: 100;
+    margin: 10px;
+    padding: 20px 40px;
+
+}
+
+.box3 {
+    float: left;
+    width: 20%;
+    background-color: #009EFF;
+    height: 100;
+    margin: 10px;
+    padding: 20px 40px;
+
+}
+
+.box4 {
+    float: left;
+    width: 20%;
+    background-color: #D2001A;
+    height: 100;
+    margin: 10px;
+    padding: 20px 40px;
+
+}
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
 /* These media queries apply when the screen width is 768px or less */
 @media screen and (max-width: 768px) {
 
@@ -346,13 +477,24 @@ td.pending {
         display: contents;
     }
 
-    .box1,
-    .box2,
-    .box3,
-        {
+    .box1 {
         width: 100%;
-        margin-top: 0;
     }
+
+    .box2 {
+        width: 100%;
+    }
+
+    .box3 {
+        width: 100%;
+    }
+
+    .box4 {
+        width: 100%;
+    }
+
+
+
 }
 
 
@@ -375,92 +517,16 @@ td.pending {
 }
 
 
-input[type=text],
-input[type=email],
-input[type=number],
-input[type=select],
-input[type=date],
-input[type=select],
-input[type=password],
-input[type=tel] {
-    width: 45%;
-    padding: 12px;
-    border: 1px solid rgb(168, 166, 166);
-    border-radius: 4px;
-    resize: vertical;
-}
-
-
-input[type=radio],
-input[type=checkbox] {
-    width: 5%;
-    padding-left: 0%;
-    border: 1px solid rgb(168, 166, 166);
-    border-radius: 4px;
-    resize: vertical;
-}
-
-
-label {
-    padding: 12px 12px 12px 0;
-    display: inline-block;
-    color: black;
-}
-
-input[type=submit] {
-    border: 3px solid #7E0524;
-    background-color: #F09910;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    margin: 0 auto;
-    color: #fff;
-    margin-top: 10;
-
-}
-
-input[type="submit"]:hover {
-    background-color: #7E0524;
-
-}
-
-.clearance-form {
-    border-radius: 5px;
-    background-color: #f2f2f2;
-    margin-bottom: 50px;
-    border: 1px solid #000;
-}
-
-.col-10 {
-    float: left;
-    width: 50%;
-    margin-top: 6px;
-}
-
-.col-90 {
-    float: left;
-    width: 50%;
-    margin-top: 6px;
-}
-
-.row:after {
-    content: "";
-    display: table;
-    clear: both;
-}
-
 @media screen and (max-width: 600px) {
 
-    .col-10,
-    .col-90 {
+    .box1,
+    .box2,
+    .box3,
+    .box4,
+        {
         width: 100%;
+        margin: 0 auto;
         margin-top: 0;
-    }
-
-    input[type=submit] {
-        width: auto;
-        margin-top: 10;
     }
 }
 
@@ -486,6 +552,17 @@ th {
     border: 1px solid #ccc;
     text-align: left;
     font-size: 12px;
+}
+
+
+
+.button {
+    background-color: white;
+    color: black;
+    border: 2px solid #555555;
+    padding: 10px 20px;
+    margin-right: 5px;
+    text-decoration: none;
 }
 </style>
 
@@ -517,7 +594,6 @@ th {
         <div class="row">
             <div class="left" style="background-color:#7E0524; ">
                 <div class="row">
-
                     <table style="color:#fff; text-align:left; padding-left:10px;">
                         <tr>
                             <td>Username:</td>
@@ -528,198 +604,103 @@ th {
                             <td><?php echo $_SESSION['fullname'];?></td>
                         </tr>
                         <tr>
-                            <td>User Role:</td>
-                            <td><?php echo $_SESSION['userRole'];?></td>
+                            <td>Position:</td>
+                            <td><?php echo $_SESSION['position'];?></td>
                         </tr>
                         <tr>
-                            <td>Programme:</td>
-                            <td><?php echo $_SESSION['programs'];?></td>
+                            <td>Faculty:</td>
+                            <td><?php echo $_SESSION['faculty'];?></td>
+                        </tr>
+                        <tr>
+                            <td>Department:</td>
+                            <td><?php echo $_SESSION['department'];?></td>
                         </tr>
                     </table>
                 </div>
                 <nav class="vertical">
                     <ul>
-                        <li><a href="student.php">Dashboard</a></li>
-                        <li><a href="transcript_feeState.php">Transcript & fee Statement</a></li>
-
+                        <li><a href="hod.php">Dashboard</a></li>
                         <li><a href="#">Request</a>
                             <ul>
-                                <li><a href="studentClearanceReq.php">Clearance request</a></li>
+                                <li><a href="clearanceRequests.php">Clearance request</a></li>
                             </ul>
                         </li>
                         <li><a href="#">Reports</a>
                             <ul>
-                                <li><a href="clearancestatus.php">Clearance Status</a></li>
+                                <li><a href="#">Cleared Students</a></li>
+                                <li><a href="">Uncleared Students</a></li>
                             </ul>
                         </li>
-
                         <li><a href="viewprofile.php">Profile</a></li>
-                        <li><a href="feedbacks.php">Feedbacks</a></li>
-
                     </ul>
                 </nav>
             </div>
 
 
-
             <div class="right" style="background-color:#FFF;">
+                <h3>Feedback</h3>
 
-                <h3>Upload your final transcript and your fee Statement</h3>
                 <div class="clearance-form">
-                    <form id="uTranscriptFees" action="transcript_feeState.php" method="post"
-                        onsubmit=" return formValidation();">
-
-                        <div class="row">
-                            <div class="col-10">
-                                <label for="upload">transcript:</label>
-                                <input type="file" name="transcript" id="transcript">
-
+                    <!-- ////! FEEDBACK -->
+                    <div id="feedback-main">
+                        <h1>Send feedback to student</h1>
+                        <form class="" method="post" action="feedback.php">
+                            <div class="">
+                                <label style="display:block; float:left;padding-left:10px;">To:</label><br>
+                                <input type="text" id="input-name" name="stdName"
+                                    value="<?php echo $_SESSION['studentName']; ?>">
+                                <input type="text" id="input-std_regNo" name="stdRegNo"
+                                    value="<?php echo $_SESSION['studentId']; ?>"><br>
+                                <label style="display:block; float:left;padding-left:10px;">From:</label><br>
+                                <input type="text" id="input-from" name="from"
+                                    value="<?php echo $_SESSION['fullname']; ?>">
                             </div>
-                            <div class="col-90">
-                                <label for="upload">fees Statement:</label>
-                                <input type="file" name="fee_statement" id="fees">
+                            <div class="">
+                                <textarea name="message" type="text" id="input-message"
+                                    placeholder="Message"></textarea>
                             </div>
-                        </div>
-                        <div class="row">
-                            <input type="submit" name="uTranscriptFees" value="Uploads">
-
-                        </div>
-                    </form>
+                            <input type="submit" name="submitMessage" value="Submit Message" id="input-submit">
+                        </form>
+                    </div>
 
                     <?php
-if(isset($_POST['uTranscriptFees'])) {
-    $std_regNo = $_SESSION['username'];
+    // Check if the form is submitted
+    if (isset($_POST['submitMessage'])) {
+        // Retrieve the form data
+        $stdName = $_POST['stdName'];
+        $stdRegNo = $_POST['stdRegNo'];
+        $feedbackFrom = $_POST['from'];
+        $feedback = $_POST['message'];
 
-    // Get the information of the uploaded transcript and fee statement files
-    $transcript = $_FILES['transcript']['name'];
-    $transcript_type = $_FILES['transcript']['type'];
-    $transcript_size = $_FILES['transcript']['size'];
-    $transcript_tem_loc = $_FILES['transcript']['tmp_name'];
-    $transcript_store ="files/".$transcript;
-    $fee_statement = $_FILES['fee_statement']['name'];
-    $fee_statement_type = $_FILES['fee_statement']['type'];
-    $fee_statement_size = $_FILES['fee_statement']['size'];
-    $fee_statement_tem_loc = $_FILES['fee_statement']['tmp_name'];
-    $fee_statement_store ="files/".$fee_statement;
+        // Prepare the SQL statement
+        $sql = "INSERT INTO feedback (stdName, stdRegNo, feedbackFrom, feedbackMessage, userRole) 
+                VALUES ('$stdName', '$stdRegNo', '$feedbackFrom', '$feedback', '{$_SESSION['position']}')";
 
-    // Move the uploaded files to the desired directory
-    move_uploaded_file($transcript_tem_loc, $transcript_store);
-    move_uploaded_file($fee_statement_tem_loc, $fee_statement_store);
-
-    // Query the database to check if the student exists
-    $stdQuery = "SELECT * FROM students WHERE std_regNo = '{$std_regNo}'";
-    $result = mysqli_query($connection, $stdQuery);
-    $stdRow = mysqli_num_rows($result);
-
-
-
-
-    // If the student exists, proceed with the file upload
-    if ($stdRow > 0) {
-
-        // Update the students table with the names of the uploaded files
-        $sql = "UPDATE students SET transcript = '{$transcript}', fee_statement = '{$fee_statement}' WHERE std_regNo = '{$std_regNo}' ";
-
-        // Check if the query was successful
+        // Execute the SQL statement
         if (mysqli_query($connection, $sql)) {
-            echo "Files successfully uploaded.";
-
-            ////! User activiy
-            $role = $_SESSION['userRole'];
-            $activity="uploads transcript and fee statement";
-
-            $insert = "INSERT INTO useractivity(username, fullname, role, type_of_activity, activity_time)
-           VALUES('$std_regNo', '{$stdRow['std_fullname']}', '$role', '$activity', NOW())";
-            mysqli_query($connection, $insert);
-
+            // Insertion successful
+            echo "<p style='color:green'>The feedback was sent successfully.</p>";
+        } else {
+            // Error occurred during insertion
+            echo "<p style='color:red'>Could not update record: " . mysqli_error($connection) ."</p>";
         }
 
+        // Close the database connection
+        mysqli_close($connection);
     }
-}
 ?>
+
                 </div>
 
-
             </div>
+
         </div>
-    </div>
-
-    </div>
 
 
+        <div class="footer">
+            <p><strong>©Copyright CUEAGMS</strong></p>
 
-
-    <div class="footer">
-        <p><strong>©Copyright CUEAGMS</strong></p>
-
-    </div>
-
-    <script src="../assets/js/upTranscript_Fees.js">
-    function formValidation() {
-        var form = document.getElementById("uTranscriptFees");
-        var transcript = document.getElementById("transcript");
-        var fees = document.getElementById("fees");
-
-
-
-        // Get the uploaded file for transcript and fees
-        var fileTranscipt = transcript.files[0];
-        var fileFees = fees.files[0];
-
-        // Check if the transcript file exists
-        if (!fileTranscipt) {
-            // If the file doesn't exist, show an alert to the user
-            alert("No file selected.");
-            // Return false to stop the code from executing further
-            return false;
-        }
-
-        // Check if the file type of transcript is a PDF
-        if (fileTranscipt.type !== "application/pdf") {
-            // If the file type is not a PDF, show an alert to the user
-            alert("Invalid file type. Only PDF files are allowed.");
-            // Return false to stop the code from executing further
-            return false;
-        }
-
-        // Check if the size of transcript file is less than 5 MB
-        if (fileTranscipt.size > 5000000) {
-            // If the file size is greater than 5 MB, show an alert to the user
-            alert("File size too large. Maximum allowed size is 5 MB.");
-            // Return false to stop the code from executing further
-            return false;
-        }
-
-        // Check if the fees file exists
-        if (!fileFees) {
-            // If the file doesn't exist, show an alert to the user
-            alert("No file selected.");
-            // Return false to stop the code from executing further
-            return false;
-        }
-
-        // Check if the file type of fees is a PDF
-        if (fileFees.type !== "application/pdf") {
-            // If the file type is not a PDF, show an alert to the user
-            alert("Invalid file type. Only PDF files are allowed.");
-            // Return false to stop the code from executing further
-            return false;
-        }
-
-        // Check if the size of fees file is less than 5 MB
-        if (fileFees.size > 5000000) {
-            // If the file size is greater than 5 MB, show an alert to the user
-            alert("File size too large. Maximum allowed size is 5 MB.");
-            // Return false to stop the code from executing further
-            return false;
-        }
-
-
-        return true;
-    });
-
-    }
-    </script>
+        </div>
 </body>
 
 </html>

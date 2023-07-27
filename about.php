@@ -20,7 +20,6 @@
 
 
 </head>
-
 <style>
 /* Set box-sizing to border-box for all elements */
 * {
@@ -34,9 +33,6 @@ body {
     margin: 0;
 }
 
-/***********************Headers and Navbar**************************/
-/******************************************************************/
-
 /* Set styles for the header, navbar, sections, and footer */
 .header,
 .navbar,
@@ -47,9 +43,10 @@ body {
     /* The width is 100%, by default */
 }
 
+
 /* Set styles for the header */
 .header {
-    height: 100;
+    height: 100px;
     background-color: #fff;
 }
 
@@ -67,23 +64,21 @@ body {
 }
 
 /* Set styles for the navbar */
-.navbar ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
+.navbar {
     background-color: #7E0524;
 }
 
 /* Set styles for the items in the navbar */
+.navbar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* Set styles for the links in the navbar */
 .navbar li {
     float: left;
     border-right: 1px solid #bbb;
-}
-
-/* Set styles for the last item in the navbar */
-.navbar li:last-child {
-    border-right: none;
 }
 
 /* Set styles for the links in the navbar */
@@ -96,103 +91,50 @@ body {
 }
 
 /* Set styles for the active link in the navbar */
-.navbar li a:hover:not(.active) {
+.navbar li a:hover {
     background-color: #F09910;
-}
-
-/* Set styles for the active item in the navbar */
-.navbar .active {
-    background-color: #F09910;
-}
-
-/* Use a media query to add a breakpoint at 800px */
-@media screen and (max-width: 768px) {
-
-    /* Set the width of the left, main, and right sections to 100% when the viewport is 800px or smaller */
-    .left,
-    .main,
-    .right {
-        width: 100%;
-    }
-
-    /* Set the styles for the items in the navbar when the viewport is 800px or smaller */
-    .header .logo p {
-        float: left;
-        font-size: 15px;
-    }
-
-    /* Set the styles for the links in the navbar when the viewport is 800px or smaller */
-    .navbar li a {
-        padding: 8px 16px;
-    }
-
-    /* Set the styles for the active item in the navbar when the viewport is 800px or smaller */
-    .navbar .active {
-        background-color: #F09910;
-        color: white;
-    }
 }
 
 /* Center the content in the section */
 .section {
+    display: flex;
     margin: 0 auto;
+    clear: both;
+    margin-top: 100px;
+
 }
 
-/* Define the layout of columns */
-.column {
-    float: left;
-    /* Float the columns to the left */
-    width: 40.3%;
-    /* Set the width of each column */
-    margin-bottom: 16px;
-    /* Add some bottom margin to separate columns */
-    padding: 0 8px;
-    /* Add some padding to the sides of each column */
-}
-
-/* Add a box shadow and margin to the cards */
-.card {
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    /* Add a box shadow */
-    margin: 20px auto;
-    /* Add some margin to separate cards */
-}
 
 /* Style the about section */
 .about-section {
     padding: 50px;
-    /* Add padding to the section */
     text-align: left;
-    /* Align the text to the left */
     background-color: #F09910;
-    /* Set the background color */
     color: white;
-    /* Set the font color */
 }
 
 /* Style the title of a section */
 .title {
     color: grey;
-    /* Set the font color */
+}
+
+/* Style the footer */
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #7E0524;
+    color: white;
+    text-align: center;
 }
 
 /* Media query for smaller screens */
 @media screen and (max-width: 768px) {
-
-    /* Set the width of the left, main, and right sections to 100% when the viewport is 800px or smaller */
-    .left,
-    .main,
-    .right {
-        width: 100%;
-    }
-
-    /* Set the styles for the items in the navbar when the viewport is 800px or smaller */
     .header .logo p {
-        float: left;
         font-size: 15px;
     }
 
-    /* Set the styles for the links in the navbar when the viewport is 800px or smaller */
     .navbar li a {
         padding: 8px 16px;
     }
@@ -201,31 +143,11 @@ body {
         width: 100%;
         display: block;
     }
-
-
-}
-
-/* Style the footer */
-.footer {
-    position: fixed;
-    /* Fix the position of the footer */
-    left: 0;
-    /* Set the left edge of the footer to the left edge of the screen */
-    bottom: 0;
-    /* Set the bottom edge of the footer to the bottom of the screen */
-    width: 100%;
-    /* Set the width of the footer to 100% of the screen */
-    background-color: #7E0524;
-    /* Set the background color */
-    color: white;
-    /* Set the font color */
-    text-align: center;
-    /* Align the text to the center */
 }
 </style>
 
-<body>
 
+<body>
 
     <!-- HEADER -->
     <div class="header">
@@ -235,52 +157,38 @@ body {
         </div>
     </div>
 
-
-
     <!-- NAVBAR -->
     <div class="navbar">
-
         <ul>
-            <li><a class="" href="index.php">Home</a></li>
+            <li><a href="index.php">Home</a></li>
             <li><a href="about.php">About GMS</a></li>
             <li><a href="faq.php">FAQ</a></li>
             <li style="float:right"><a href="login.php">Login</a></li>
         </ul>
     </div>
 
-
     <div class="section">
         <div class="column">
-            <div class="card">
-                <div class="about-section">
-                    <h1>CUEAGMS</h1>
-                    <p>CUEAGMS provides a streamlined process for students to apply for clearance, which is required
-                        for graduation. The clearance process involves several departments, including Heads of
-                        Department, Deans of students, Finance, Library, and Registrars. Students are expected to
-                        fulfill all requirements and obtain clearance from each department before they can graduate.
-                        Overall, CUEAGMS plays a critical role in facilitating academic success and administrative
-                        efficiency for both students and institutions..</p>
-                </div>
+            <div class="about-section">
+                <h1>CUEAGMS</h1>
+                <p>CUEAGMS provides a streamlined process for students to apply for clearance, which is required for
+                    graduation. The clearance process involves several departments, including Heads of Department,
+                    Deans of students, Finance, Library, and Registrars. Students are expected to fulfill all
+                    requirements and obtain clearance from each department before they can graduate. Overall,
+                    CUEAGMS plays a critical role in facilitating academic success and administrative efficiency for
+                    both students and institutions.</p>
             </div>
         </div>
 
         <div class="column">
-            <div class="card">
-                <img src="assets/images/cueag.jpg" alt="John" style="width:100%">
-
-            </div>
+            <img style="width:100%" src="assets/images/cueag.jpg">
         </div>
+    </div>
 
-        </section>
-        <!-- Footer -->
-
-        <div class="footer">
-            <p><strong>©Copyright CUEAGMS</strong></p>
-
-        </div>
-
-        <!-- <script src="assets/js/script.js"></script> -->
-
+    <!-- Footer -->
+    <div class="footer">
+        <p><strong> &copy; 2023 CUEAGMS</strong></p>
+    </div>
 </body>
 
 </html>

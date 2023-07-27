@@ -256,13 +256,15 @@ th {
             <?php 
 //! RETREIVING STUDENT AND CLEARANCE Details
             if (isset($_GET['id'])) {
-
                 $std_regNo = $_GET['id'];
+                $_SESSION['studentId'] = $std_regNo;
 //? Retreiving Student details
                 $query = "SELECT * FROM students WHERE std_regNo = '$std_regNo'";
                 $result = mysqli_query($connection, $query);
                 // Fetch the data
                 $stdrow = mysqli_fetch_assoc($result);
+                $_SESSION['studentName'] =$stdrow['std_fullname'];
+
 //? Retreiving Clearance details
 
                 $query = "SELECT * FROM clearance WHERE std_regNo = '$std_regNo'";
@@ -295,6 +297,28 @@ th {
 
                 <h3>Student Details</h3>
                 <div class="clearance-form">
+                    <p><a style="
+                                background-color: #F09910;
+                                color: white;
+                                padding: 12px 20px;
+                                margin-right:10px;
+                                border: none;
+                                border-radius: 10px;
+                                float: left;
+                                 text-decoration: none;" href="clearanceRequests.php">Back</a>
+                    </p>
+                    <p><a style="
+                                background-color: #F09910;
+                                color: white;
+                                padding: 12px 20px;
+                                margin-right:10px;
+                                border: none;
+                                border-radius: 10px;
+                                float: left;
+                                 text-decoration: none;"
+                            href="feedback.php?id={$_SESSION['studentId']}&fulnames={$_SESSION['studentName']}">Feedback</a>
+                    </p>
+
                     <div class="row">
                         <table class="profile-tab">
                             <tr>

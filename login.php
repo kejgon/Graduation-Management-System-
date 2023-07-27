@@ -1,50 +1,30 @@
 <?php
-// is a PHP function that starts a new or resumes an existing session. 
-// A session is a way to store data (variables) on the server 
-// that can be used across multiple pages of a website.
+
+// Start a new PHP session and buffer the output
 session_start();
-ob_start(); //turning on output buffer ////? To prevent header() errors
+ob_start();
 
-// Turn on output buffering
-// This function will turn output buffering on. While output buffering is 
-// active, no output is sent from the script (other than headers), instead the output is stored
+// Database connection details
+$host = "127.0.0.1";   // Server name or IP address where MySQL is running
+$user = "cueagmsAC";   // MySQL user name
+$password = "password";   // MySQL password
+$dbname = "cueagms";   // MySQL database name
 
-
-// database connection details
-
-$host="127.0.0.1";// server name or IP address where MySQL is running
-$user="cueagmsAC"; // MySQL user name
-$password="password";// MySQL password
-$dbname="cueagms"; // MySQL database name
-
-// create a new MySQL connection using the above details
+// Create a new MySQL connection using the above details
 $connection = mysqli_connect($host, $user, $password, $dbname);
 
-// check if the connection was successful
+// Check if the connection was successful
 if ($connection === false) {
-    // if the connection failed, stop the script and display an error message
+    // If the connection failed, stop the script and display an error message
     die("ERROR: Could not connect. " . mysqli_connect_error());
 }
+
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
 
 <head>
 
-    <!-- specifies the character encoding used on the page. In this case, it is set to UTF-8,
- which is a widely used character encoding that supports a wide 
- range of characters and scripts. -->
-    <meta charset="UTF-8">
-    <!-- sets the compatibility mode for Internet Explorer.
-    The value "IE=edge" tells IE to use the latest version of its rendering engine,
-    regardless of the document mode. -->
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <!-- sets the viewport settings for the page. The "width=device-width" 
-    tells the browser to set the width of the viewport to the width of the device. 
-    The "initial-scale=1.0" sets the initial zoom level of the page to 1.0, 
-    which means it is not zoomed in or out by default. -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CUEAGMS</title>
 
 
@@ -62,9 +42,6 @@ body {
     text-align: center;
     margin: 0;
 }
-
-/***********************Headers and Navbar**************************/
-/******************************************************************/
 
 /* Set styles for the header, navbar, sections, and footer */
 .header,
@@ -95,24 +72,22 @@ body {
     color: #7E0524;
 }
 
+.navbar {
+    background-color: #7E0524;
+
+}
+
 /* Set styles for the navbar */
 .navbar ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
-    overflow: hidden;
-    background-color: #7E0524;
 }
 
 /* Set styles for the items in the navbar */
 .navbar li {
     float: left;
     border-right: 1px solid #bbb;
-}
-
-/* Set styles for the last item in the navbar */
-.navbar li:last-child {
-    border-right: none;
 }
 
 /* Set styles for the links in the navbar */
@@ -124,29 +99,11 @@ body {
     text-decoration: none;
 }
 
-/* Set styles for the active link in the navbar */
-.navbar li a:hover:not(.active) {
-    background-color: #F09910;
-}
-
-/* Set styles for the active item in the navbar */
-.navbar .active {
-    background-color: #F09910;
-}
-
 /* Use a media query to add a breakpoint at 800px */
 @media screen and (max-width: 768px) {
 
-    /* Set the width of the left, main, and right sections to 100% when the viewport is 800px or smaller */
-    .left,
-    .main,
-    .right {
-        width: 100%;
-    }
-
     /* Set the styles for the items in the navbar when the viewport is 800px or smaller */
     .header .logo p {
-        float: left;
         font-size: 15px;
     }
 
@@ -154,20 +111,14 @@ body {
     .navbar li a {
         padding: 8px 16px;
     }
-
-    /* Set the styles for the active item in the navbar when the viewport is 800px or smaller */
-    .navbar .active {
-        background-color: #F09910;
-        color: white;
-    }
 }
 
-
-
+/* Style for the container */
 #container {
     margin: 0 auto;
-    margin-top: 8%;
-    width: 40%;
+    margin-top: 100px;
+    margin-bottom: 100px;
+    width: 60%;
     height: auto;
     padding: 50px 15px;
     background-color: #F09910;
@@ -225,28 +176,6 @@ input[type="submit"]:hover {
     background-color: #7E0524;
 }
 
-
-/* Media query for smaller screens */
-@media screen and (max-width: 768px) {
-
-    /* Set the styles for the items in the navbar when the viewport is 800px or smaller */
-    .header .logo p {
-        float: left;
-        font-size: 15px;
-    }
-
-    /* Set the styles for the links in the navbar when the viewport is 800px or smaller */
-    .navbar li a {
-        padding: 8px 16px;
-    }
-
-    #container {
-        width: 60%;
-
-    }
-}
-
-
 /* Style the footer */
 .footer {
     position: fixed;
@@ -265,19 +194,29 @@ input[type="submit"]:hover {
     /* Align the text to the center */
 }
 
+/* Style for the captcha container */
+.captcha-container {
+    background-color: #FFF;
+    padding: 10px;
+}
 
+#captcha-input {
+    border: 2px solid #000;
+    margin-top: 10px;
+}
 
-
-
-/* Style for captcha element */
-.captcha {
-    width: 50%;
-    background-color: yellow;
-    text-align: center;
-    font-size: 24px;
-    font-weight: 700;
+/* Style for the captcha image */
+.captcha-image {
+    margin-bottom: 10px;
+    border: 2px solid #7E0524;
+    width: 100px;
+    margin: 0 auto;
+    padding: 10px;
+    background-color: #7E0524;
+    color: #fff;
 }
 </style>
+
 
 <body>
 
@@ -294,7 +233,7 @@ input[type="submit"]:hover {
     <!-- NAVBAR -->
     <div class="navbar">
         <ul>
-            <li><a class="active" href="index.php">Home</a></li>
+            <li><a href="index.php">Home</a></li>
             <li><a href="about.php">About GMS</a></li>
             <li><a href="faq.php">FAQ</a></li>
             <li style="float:right"><a href="login.php">Login</a></li>
@@ -306,9 +245,9 @@ input[type="submit"]:hover {
     <div class="section">
         <div id="container">
             <!--return validateForm()!!  returns a boolean value (true or false) depending on whether the form inputs are valid or not -->
-            <form id="myForm" onsubmit="return validateForm();" action="login.php" method="post">
+            <form id="login-form" onsubmit="return validateForm();" action="login.php" method="post">
                 <div class="row ">
-                    <label for="Username">Username</label>
+                    <label for="Username">Id number</label>
                     <input id="username" type="text" id="Username" name="username"><br>
                 </div>
 
@@ -325,6 +264,13 @@ input[type="submit"]:hover {
                         <option value="Employee"> Employee </option>
                         <option value="Admin"> Admin </option>
                     </select>
+                </div>
+                <div class="row">
+                    <div class="captcha-container">
+                        <div class="captcha-image" id="captcha-image"></div>
+                        <input type="text" id="captcha-input" name="captcha" placeholder="Enter the CAPTCHA">
+                        <button type="button" id="refresh-captcha">Refresh CAPTCHA</button>
+                    </div>
                 </div>
                 <input type="submit" name="submit" value="Login">
             </form>
@@ -475,44 +421,128 @@ input[type="submit"]:hover {
 
 
     <div class="footer">
-        <p><strong>©Copyright CUEAGMS</strong></p>
+        <p><strong> &copy; 2023 CUEAGMS</strong></p>
     </div>
 
 
     <script>
+    // Function to handle the CAPTCHA functionality
+    function captchaFunction() {
+        // Generate a random CAPTCHA code
+        function generateCaptcha() {
+            var captchaCode = '';
+            var possibleCharacters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+
+            // Loop to generate a random 6-character CAPTCHA code
+            for (var i = 0; i < 6; i++) {
+                captchaCode += possibleCharacters.charAt(Math.floor(Math.random() * possibleCharacters.length));
+            }
+
+            return captchaCode;
+        }
+
+        // Render the CAPTCHA image
+        function renderCaptcha() {
+            var captchaImage = document.getElementById('captcha-image');
+            var captchaCode = generateCaptcha();
+
+            // Display the CAPTCHA code in the CAPTCHA image element
+            captchaImage.textContent = captchaCode;
+        }
+
+        // Refresh CAPTCHA
+        var refreshButton = document.getElementById('refresh-captcha');
+        // Event listener for the refresh button click
+        refreshButton.addEventListener('click', renderCaptcha);
+
+        // Initialize CAPTCHA on page load
+        renderCaptcha();
+
+        // Validate CAPTCHA on form submission
+        var loginForm = document.getElementById('login-form');
+        // Event listener for the form submission
+        loginForm.addEventListener('submit', function(event) {
+            var captchaInput = document.getElementById('captcha-input');
+            var captchaImage = document.getElementById('captcha-image');
+
+            if (captchaInput.value == 0) {
+                // Prevent form submission if CAPTCHA is not entered
+                event.preventDefault();
+                alert('Please enter the CAPTCHA.');
+            } else if (captchaInput.value.toLowerCase() !== captchaImage.textContent.toLowerCase()) {
+                // Prevent form submission and show error message if CAPTCHA is invalid
+                event.preventDefault();
+                alert('Invalid CAPTCHA. Please try again.');
+                captchaInput.value = '';
+                renderCaptcha();
+            }
+        });
+    }
+
+
+    // Call the captchaFunction to initialize the CAPTCHA functionality
+    captchaFunction();
+
+
+
     // function to validate form fields
+    // This function, named "validateForm," is used to validate a form's input fields 
+    //before submitting it to the server. It is typically called when the user attempts to
+    // submit the form. The function performs various validation checks on the username,
+    // password, and user role fields to ensure that they meet certain criteria.
     function validateForm() {
+        // Fetch the element with the ID "username" from the DOM and store it in the variable "username."
         var username = document.getElementById("username");
+
+        // Fetch the element with the ID "password" from the DOM and store it in the variable "password."
         var password = document.getElementById("password");
+
+        // Fetch the element with the ID "select" (user role dropdown) from the DOM and store it in the variable "role."
         var role = document.getElementById("select");
 
+        // Fetch the element with the ID "captcha-input" from the DOM and store it in the variable "captcha."
+        var captcha = document.getElementById("captcha-input");
 
-        // USERNAME VALIDATION
+        // USERNAME VALIDATION:
+        // Extract the value entered by the user in the "username" input field 
+        //and store it in the variable "usernameVal."
         var usernameVal = username.value;
+
+        // If the length of "usernameVal" is zero 
+        //(i.e., no username has been entered), 
+        //show a window alert with the message "Username is required," and return "false" to prevent the form from being submitted.
         if (usernameVal.length == 0) {
             window.alert("Username is required");
             return false;
         }
 
-        // PASSWORD VALIDATION
+        // PASSWORD VALIDATION:
+        // Extract the password entered by the user and store it in the variable "passwordVal."
         var passwordVal = password.value;
+
+        // If the length of "passwordVal" is zero, show a window alert with the message "Password is required," and return "false" to prevent the form from being submitted.
         if (passwordVal.length == 0) {
             window.alert("Password is required");
             return false;
         }
-        // Check if the password is at least 8 characters long
+
+        // Check if the length of the password is less than 8 characters. If so, show a window alert with the message "Password must be at least 8 characters long," and return "false" to prevent the form from being submitted.
         if (passwordVal.length < 8) {
             window.alert("Password must be at least 8 characters long");
             return false;
         }
 
-        // USERROLE VALIDATION
+        // USERROLE VALIDATION:
+        // Extract the selected value from the user role dropdown and store it in the variable "roleVal."
         var roleVal = role.value;
+
+        // If "roleVal" is equal to 0, it means no role has been selected. In this case, show a window alert with the message "Please select your role," and return "false" to prevent the form from being submitted.
         if (roleVal == 0) {
             window.alert("Please select your role");
             return false;
         }
 
+        // If all the validation checks pass, i.e., all required fields are filled, password is at least 8 characters long, and a user role is selected, the function will implicitly return "true," allowing the form to be submitted to the server for further processing.
     }
     </script>
     <!-- //! ENDDING TAG FOR JAVASCRIPT SCRIPT -->

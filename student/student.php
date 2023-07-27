@@ -460,6 +460,8 @@ td.pending {
                         </li>
 
                         <li><a href="viewprofile.php">Profile</a></li>
+                        <li><a href="feedbacks.php">Feedbacks</a></li>
+
                     </ul>
                 </nav>
             </div>
@@ -469,19 +471,58 @@ td.pending {
                 <h3> <?php echo $_SESSION['userRole'];?> Dashboard</h3>
 
                 <div class="row">
-                    <div class="box1">
-                        1
-                    </div>
-                    <div class="box2">
-                        2
-                    </div>
-                    <div class="box3">
-                        3
+                    <h1>What does the clearance proceedure invlves?</h1>
+                    <!-- faq answer -->
+                    <div>
+                        <p>The clearance procedure for CUEAGMS involves several departments, which work together to
+                            ensure
+                            that the student has fulfilled all necessary requirements before being cleared. These
+                            departments include:
+                        <ul>
+
+                            <li> <b>Heads of Department:</b> This department is responsible for verifying that the
+                                student
+                                has
+                                completed
+                                all required academic requirements, including completing the required number of units,
+                                all
+                                core
+                                units, and any other liabilities in the department.</li>
+
+                            <li> <b>Deans of Students:</b> The Deans of Students are responsible for confirming that the
+                                student
+                                has
+                                been cleared from the sports section and any other areas related to welfare. They also
+                                confirm
+                                that the student does not have any academic or non-academic disciplinary issues.</li>
+
+                            <li> <b>Finance Department:</b> The Finance Department plays a central role, they confirm
+                                whether the
+                                student does not owe the university any
+                                fees.</li>
+
+                            <li> <b>Library Department:</b> The Library Department is responsible for confirming that
+                                the
+                                student
+                                does
+                                not owe the university any book(s), overdue fines, or any other library information
+                                material.</li>
+
+                            <li><b>Registrars:</b> The Registrars are responsible for checking the complete clearance
+                                form
+                                from
+                                other
+                                relevant departments. They receive the student’s school ID card and records, and then
+                                the
+                                student proceeds to clear with finance.</li>
+                        </ul>
+                        </p>
                     </div>
                 </div>
-
             </div>
+
         </div>
+    </div>
     </div>
 
 

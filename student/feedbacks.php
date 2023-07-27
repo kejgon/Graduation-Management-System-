@@ -1,25 +1,29 @@
 <?php
-// is a PHP function that starts a new or resumes an existing session. 
-// A session is a way to store data (variables) on the server 
-// that can be used across multiple pages of a website.
+
+// Start a new PHP session and buffer the output
 session_start();
-ob_start(); //turning on output buffer ////? To prevent header() errors
+ob_start();
 
+// Database connection details
+$host = "127.0.0.1";   // Server name or IP address where MySQL is running
+$user = "cueagmsAC";   // MySQL user name
+$password = "password";   // MySQL password
+$dbname = "cueagms";   // MySQL database name
 
-// database connection details
-$host = "localhost"; // server name or IP address where MySQL is running
-$user = "cueagmsac"; // MySQL user name
-$password = "password"; // MySQL password
-$dbname = "cueagms"; // MySQL database name
-
-// create a new MySQL connection using the above details
+// Create a new MySQL connection using the above details
 $connection = mysqli_connect($host, $user, $password, $dbname);
 
-// check if the connection was successful
+// Check if the connection was successful
 if ($connection === false) {
-    // if the connection failed, stop the script and display an error message
+    // If the connection failed, stop the script and display an error message
     die("ERROR: Could not connect. " . mysqli_connect_error());
 }
+
+//! SETTING USERS ACCORDING TO CONDITIONS
+if (isset($_SESSION['userRole']) != "Student") {
+    header('Location: ../index.php');
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -373,120 +377,6 @@ td.pending {
     text-align: center;
     /* Align the text to the center */
 }
-
-
-input[type=text],
-input[type=email],
-input[type=number],
-input[type=select],
-input[type=date],
-input[type=select],
-input[type=password],
-input[type=tel] {
-    width: 45%;
-    padding: 12px;
-    border: 1px solid rgb(168, 166, 166);
-    border-radius: 4px;
-    resize: vertical;
-}
-
-
-input[type=radio],
-input[type=checkbox] {
-    width: 5%;
-    padding-left: 0%;
-    border: 1px solid rgb(168, 166, 166);
-    border-radius: 4px;
-    resize: vertical;
-}
-
-
-label {
-    padding: 12px 12px 12px 0;
-    display: inline-block;
-    color: black;
-}
-
-input[type=submit] {
-    border: 3px solid #7E0524;
-    background-color: #F09910;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    margin: 0 auto;
-    color: #fff;
-    margin-top: 10;
-
-}
-
-input[type="submit"]:hover {
-    background-color: #7E0524;
-
-}
-
-.clearance-form {
-    border-radius: 5px;
-    background-color: #f2f2f2;
-    margin-bottom: 50px;
-    border: 1px solid #000;
-}
-
-.col-10 {
-    float: left;
-    width: 50%;
-    margin-top: 6px;
-}
-
-.col-90 {
-    float: left;
-    width: 50%;
-    margin-top: 6px;
-}
-
-.row:after {
-    content: "";
-    display: table;
-    clear: both;
-}
-
-@media screen and (max-width: 600px) {
-
-    .col-10,
-    .col-90 {
-        width: 100%;
-        margin-top: 0;
-    }
-
-    input[type=submit] {
-        width: auto;
-        margin-top: 10;
-    }
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-/* Zebra striping */
-tr:nth-of-type(odd) {
-    background: none;
-}
-
-th {
-    background: #333;
-    color: white;
-    font-weight: bold;
-}
-
-td,
-th {
-    padding: 6px;
-    border: 1px solid #ccc;
-    text-align: left;
-    font-size: 12px;
-}
 </style>
 
 <body>
@@ -555,95 +445,77 @@ th {
 
                         <li><a href="viewprofile.php">Profile</a></li>
                         <li><a href="feedbacks.php">Feedbacks</a></li>
-
                     </ul>
                 </nav>
             </div>
 
 
-
             <div class="right" style="background-color:#FFF;">
+                <h3> <?php echo $_SESSION['userRole'];?> Feedback</h3>
 
-                <h3>Upload your final transcript and your fee Statement</h3>
-                <div class="clearance-form">
-                    <form id="uTranscriptFees" action="transcript_feeState.php" method="post"
-                        onsubmit=" return formValidation();">
+                <hr style="border: 3px solid #F09910">
+                <table id="myTable" style="color:#000; text-align:left; padding-left:10px;">
+                    <thead>
+                        <tr>
+                            <th>
+                                No.
+                            </th>
+                            <th>
+                                Feedback From
+                            </th>
+                            <th>
+                                Feedback Message</th>
 
-                        <div class="row">
-                            <div class="col-10">
-                                <label for="upload">transcript:</label>
-                                <input type="file" name="transcript" id="transcript">
+                            <th>
+                                Role</th>
 
-                            </div>
-                            <div class="col-90">
-                                <label for="upload">fees Statement:</label>
-                                <input type="file" name="fee_statement" id="fees">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <input type="submit" name="uTranscriptFees" value="Uploads">
+                            <th>
+                                Date
+                            </th>
 
-                        </div>
-                    </form>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+// Build the query
+$sql = "SELECT feedbackFrom, feedbackMessage, userRole, created_at FROM feedback WHERE stdRegNo = {$_SESSION['username']}";
 
-                    <?php
-if(isset($_POST['uTranscriptFees'])) {
-    $std_regNo = $_SESSION['username'];
+// Execute the query
+$result = mysqli_query($connection, $sql);
+$countRow = 1;
 
-    // Get the information of the uploaded transcript and fee statement files
-    $transcript = $_FILES['transcript']['name'];
-    $transcript_type = $_FILES['transcript']['type'];
-    $transcript_size = $_FILES['transcript']['size'];
-    $transcript_tem_loc = $_FILES['transcript']['tmp_name'];
-    $transcript_store ="files/".$transcript;
-    $fee_statement = $_FILES['fee_statement']['name'];
-    $fee_statement_type = $_FILES['fee_statement']['type'];
-    $fee_statement_size = $_FILES['fee_statement']['size'];
-    $fee_statement_tem_loc = $_FILES['fee_statement']['tmp_name'];
-    $fee_statement_store ="files/".$fee_statement;
+// Check if any rows were returned
+if (mysqli_num_rows($result) > 0) {
+// Loop through the rows and display all records
+while ($row = mysqli_fetch_assoc($result)) {
+$display = <<<HEREDOC
+<tr>
+<td>{$countRow}</td>
+<td>{$row['feedbackFrom']}</td>
+<td>{$row['feedbackMessage']}</td>
+<td>{$row['userRole']}</td>
+<td>{$row['created_at']}</td>       
+</tr>
+HEREDOC;
 
-    // Move the uploaded files to the desired directory
-    move_uploaded_file($transcript_tem_loc, $transcript_store);
-    move_uploaded_file($fee_statement_tem_loc, $fee_statement_store);
-
-    // Query the database to check if the student exists
-    $stdQuery = "SELECT * FROM students WHERE std_regNo = '{$std_regNo}'";
-    $result = mysqli_query($connection, $stdQuery);
-    $stdRow = mysqli_num_rows($result);
-
-
-
-
-    // If the student exists, proceed with the file upload
-    if ($stdRow > 0) {
-
-        // Update the students table with the names of the uploaded files
-        $sql = "UPDATE students SET transcript = '{$transcript}', fee_statement = '{$fee_statement}' WHERE std_regNo = '{$std_regNo}' ";
-
-        // Check if the query was successful
-        if (mysqli_query($connection, $sql)) {
-            echo "Files successfully uploaded.";
-
-            ////! User activiy
-            $role = $_SESSION['userRole'];
-            $activity="uploads transcript and fee statement";
-
-            $insert = "INSERT INTO useractivity(username, fullname, role, type_of_activity, activity_time)
-           VALUES('$std_regNo', '{$stdRow['std_fullname']}', '$role', '$activity', NOW())";
-            mysqli_query($connection, $insert);
-
-        }
-
-    }
+echo $display;
+$countRow++;
 }
+} else {
+echo "<td colspan='13' style='text-align:center'>No records found.</td>";
+}
+
+// Close the database connection
+mysqli_close($connection);
+
 ?>
-                </div>
+
+                    </tbody>
+                </table>
 
 
             </div>
         </div>
-    </div>
-
     </div>
 
 
@@ -653,73 +525,6 @@ if(isset($_POST['uTranscriptFees'])) {
         <p><strong>©Copyright CUEAGMS</strong></p>
 
     </div>
-
-    <script src="../assets/js/upTranscript_Fees.js">
-    function formValidation() {
-        var form = document.getElementById("uTranscriptFees");
-        var transcript = document.getElementById("transcript");
-        var fees = document.getElementById("fees");
-
-
-
-        // Get the uploaded file for transcript and fees
-        var fileTranscipt = transcript.files[0];
-        var fileFees = fees.files[0];
-
-        // Check if the transcript file exists
-        if (!fileTranscipt) {
-            // If the file doesn't exist, show an alert to the user
-            alert("No file selected.");
-            // Return false to stop the code from executing further
-            return false;
-        }
-
-        // Check if the file type of transcript is a PDF
-        if (fileTranscipt.type !== "application/pdf") {
-            // If the file type is not a PDF, show an alert to the user
-            alert("Invalid file type. Only PDF files are allowed.");
-            // Return false to stop the code from executing further
-            return false;
-        }
-
-        // Check if the size of transcript file is less than 5 MB
-        if (fileTranscipt.size > 5000000) {
-            // If the file size is greater than 5 MB, show an alert to the user
-            alert("File size too large. Maximum allowed size is 5 MB.");
-            // Return false to stop the code from executing further
-            return false;
-        }
-
-        // Check if the fees file exists
-        if (!fileFees) {
-            // If the file doesn't exist, show an alert to the user
-            alert("No file selected.");
-            // Return false to stop the code from executing further
-            return false;
-        }
-
-        // Check if the file type of fees is a PDF
-        if (fileFees.type !== "application/pdf") {
-            // If the file type is not a PDF, show an alert to the user
-            alert("Invalid file type. Only PDF files are allowed.");
-            // Return false to stop the code from executing further
-            return false;
-        }
-
-        // Check if the size of fees file is less than 5 MB
-        if (fileFees.size > 5000000) {
-            // If the file size is greater than 5 MB, show an alert to the user
-            alert("File size too large. Maximum allowed size is 5 MB.");
-            // Return false to stop the code from executing further
-            return false;
-        }
-
-
-        return true;
-    });
-
-    }
-    </script>
 </body>
 
 </html>

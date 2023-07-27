@@ -1,25 +1,24 @@
 <?php
-// is a PHP function that starts a new or resumes an existing session. 
-// A session is a way to store data (variables) on the server 
-// that can be used across multiple pages of a website.
+
+// Start a new PHP session and buffer the output
 session_start();
-ob_start(); //turning on output buffer ////? To prevent header() errors
+ob_start();
 
+// Database connection details
+$host = "127.0.0.1";   // Server name or IP address where MySQL is running
+$user = "cueagmsAC";   // MySQL user name
+$password = "password";   // MySQL password
+$dbname = "cueagms";   // MySQL database name
 
-// database connection details
-$host = "localhost"; // server name or IP address where MySQL is running
-$user = "cueagmsac"; // MySQL user name
-$password = "password"; // MySQL password
-$dbname = "cueagms"; // MySQL database name
-
-// create a new MySQL connection using the above details
+// Create a new MySQL connection using the above details
 $connection = mysqli_connect($host, $user, $password, $dbname);
 
-// check if the connection was successful
+// Check if the connection was successful
 if ($connection === false) {
-    // if the connection failed, stop the script and display an error message
+    // If the connection failed, stop the script and display an error message
     die("ERROR: Could not connect. " . mysqli_connect_error());
 }
+
 
 //! SETTING USERS ACCORDING TO CONDITIONS
 if (isset($_SESSION['userRole']) != "Student") {
@@ -28,23 +27,9 @@ if (isset($_SESSION['userRole']) != "Student") {
 
 ?>
 <!DOCTYPE html>
-<html lang="en">
 
 <head>
 
-    <!-- specifies the character encoding used on the page. In this case, it is set to UTF-8,
- which is a widely used character encoding that supports a wide 
- range of characters and scripts. -->
-    <meta charset="UTF-8">
-    <!-- sets the compatibility mode for Internet Explorer.
-    The value "IE=edge" tells IE to use the latest version of its rendering engine,
-    regardless of the document mode. -->
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <!-- sets the viewport settings for the page. The "width=device-width" 
-    tells the browser to set the width of the viewport to the width of the device. 
-    The "initial-scale=1.0" sets the initial zoom level of the page to 1.0, 
-    which means it is not zoomed in or out by default. -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CUEAGMS</title>
 
 
@@ -514,6 +499,8 @@ th {
                             </ul>
                         </li>
                         <li><a href="viewprofile.php">Profile</a></li>
+                        <li><a href="feedbacks.php">Feedbacks</a></li>
+
                     </ul>
                 </nav>
             </div>
@@ -577,14 +564,14 @@ th {
                                 <tr>
                                     <td class="status">
                                         <?php
-                            $query = "SELECT stdStatus
+                            $query = "SELECT stdStatus, date(updated_at) as date
                             FROM hod_clearance_request
                             WHERE stdStatus IS NOT NULL AND std_regNo = '$std_regNo'";
                             $result = mysqli_query($connection, $query);
                             if ($result && mysqli_num_rows($result) > 0) {
                               // Fetch the data
                               $row = mysqli_fetch_assoc($result);
-                              echo $row['stdStatus'];
+                              echo $row['stdStatus'] ." on ". $row['date'];
                             } else {
                               echo "You haven't submitted the clearance form";
                             }
@@ -593,14 +580,14 @@ th {
 
                                     <td class="status">
                                         <?php
-                            $query = "SELECT stdStatus
+                            $query = "SELECT stdStatus, date(updated_at) as date
                             FROM library_clearance_request
                             WHERE stdStatus IS NOT NULL AND std_regNo = '$std_regNo'";
                             $result = mysqli_query($connection, $query);
                             if ($result && mysqli_num_rows($result) > 0) {
                               // Fetch the data
                               $row = mysqli_fetch_assoc($result);
-                              echo $row['stdStatus'];
+                              echo $row['stdStatus'] ." on ". $row['date'];
                             } else {
                               echo "You haven't submitted the clearance form";
                             }
@@ -610,14 +597,14 @@ th {
                                     <td class="status">
 
                                         <?php
-                            $query = "SELECT stdStatus
+                            $query = "SELECT stdStatus, date(updated_at) as date
                             FROM dean_clearance_request
                             WHERE stdStatus IS NOT NULL AND std_regNo = '$std_regNo'";
                             $result = mysqli_query($connection, $query);
                             if ($result && mysqli_num_rows($result) > 0) {
                               // Fetch the data
                               $row = mysqli_fetch_assoc($result);
-                              echo $row['stdStatus'];
+                              echo $row['stdStatus'] ." on ". $row['date'];
                             } else {
                               echo "You haven't submitted the clearance form";
                             }
@@ -627,14 +614,14 @@ th {
                                     <td class="status">
 
                                         <?php
-                            $query = "SELECT stdStatus
+                            $query = "SELECT stdStatus , date(updated_at) as date
                             FROM reg_clearance_request
                             WHERE stdStatus IS NOT NULL AND std_regNo = '$std_regNo'";
                             $result = mysqli_query($connection, $query);
                             if ($result && mysqli_num_rows($result) > 0) {
                               // Fetch the data
                               $row = mysqli_fetch_assoc($result);
-                              echo $row['stdStatus'];
+                              echo $row['stdStatus'] ." on ". $row['date'];
                             } else {
                               echo "You haven't submitted the clearance form";
                             }
@@ -643,14 +630,14 @@ th {
 
                                     <td class="status">
                                         <?php
-                            $query = "SELECT stdStatus
+                            $query = "SELECT stdStatus, date(updated_at) as date
                             FROM fin_clearance_request
                             WHERE stdStatus IS NOT NULL AND std_regNo = '$std_regNo'";
                             $result = mysqli_query($connection, $query);
                             if ($result && mysqli_num_rows($result) > 0) {
                               // Fetch the data
                               $row = mysqli_fetch_assoc($result);
-                              echo $row['stdStatus'];
+                              echo $row['stdStatus'] ." on ". $row['date'];
                             } else {
                               echo "Will be submitted by the registrar";
                             }

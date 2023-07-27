@@ -579,6 +579,8 @@ th {
                         </li>
 
                         <li><a href="viewprofile.php">Profile</a></li>
+                        <li><a href="feedbacks.php">Feedbacks</a></li>
+
                     </ul>
                 </nav>
             </div>

@@ -566,6 +566,8 @@ th {
                         </li>
 
                         <li><a href="viewprofile.php">Profile</a></li>
+                        <li><a href="feedbacks.php">Feedbacks</a></li>
+
                     </ul>
                 </nav>
             </div>
@@ -606,13 +608,13 @@ $row = mysqli_fetch_assoc($result);
                     <form action="studentupdates.php" method="post" onsubmit=" return formValidation();">
                         <div class="row">
                             <div class="col-10">
-                                <label for="fname">Employee Full name:</label>
+                                <label for="fname">Student Full name:</label>
                                 <input type="text" id="fullname" name="fullname"
                                     value="<?php echo $row['std_fullname'];?>">
 
                             </div>
                             <div class="col-90">
-                                <p>Employee No. : <?php echo $row['std_regNo'];?></p>
+                                <p>Student No. : <?php echo $row['std_regNo'];?></p>
                             </div>
                         </div>
                         <div class="row">

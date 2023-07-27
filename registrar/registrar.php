@@ -757,8 +757,9 @@ if (mysqli_num_rows($result) > 0) {
                 }
                 ?>
                     <div class="col-9" style="width:50%;">
-                        <h3> Summary of clearance Reports by Levels</h3>
-                        <form method="post" action="registrar.php">
+                        <h3> Graduation reports by Year</h3>
+
+                        <form action="registrar.php" method="post">
                             <label for="year"> Year:</label>
                             <select name="year" id="year">
                                 <option value=" ">Select the year:</option>
@@ -766,12 +767,21 @@ if (mysqli_num_rows($result) > 0) {
                                 <option value="2022">2022</option>
 
                             </select>
-                            <input type="submit" name="getSummary" value="GetSummary">
+                            <input type="submit" name="submitYear" value="search">
                         </form>
-
-                        <canvas id="myChart"></canvas>
-
                     </div>
+
+                    <?php
+                 if(isset($_POST['submitYear'])) {
+                    $department = $_POST['year'];
+                    $_SESSION['theYear'] = $department;
+                    
+                    header("Location: byYear.php"); // Redirect to the desired page
+                    exit(); // Terminate the current script
+                }
+                ?>
+
+
 
 
                     <?php
@@ -1160,9 +1170,9 @@ if (mysqli_num_rows($result) > 0) {
 
                 <div class="row" style="margin-bottom:100px">
                     <div class="col-10" style="width:50%">
-                        <h3> Graduation reports by Year</h3>
 
-                        <form action="registrar.php" method="post">
+                        <h3> Summary of clearance Reports by Levels</h3>
+                        <form method="post" action="registrar.php">
                             <label for="year"> Year:</label>
                             <select name="year" id="year">
                                 <option value=" ">Select the year:</option>
@@ -1170,19 +1180,13 @@ if (mysqli_num_rows($result) > 0) {
                                 <option value="2022">2022</option>
 
                             </select>
-                            <input type="submit" name="submitYear" value="search">
+                            <input type="submit" name="getSummary" value="GetSummary">
                         </form>
+
+                        <canvas id="myChart"></canvas>
+
                     </div>
 
-                    <?php
-                 if(isset($_POST['submitYear'])) {
-                    $department = $_POST['year'];
-                    $_SESSION['theYear'] = $department;
-                    
-                    header("Location: byYear.php"); // Redirect to the desired page
-                    exit(); // Terminate the current script
-                }
-                ?>
                     <div class="col-9" style="width:50%">
                         <h3> Summary of Graduants Reports by Levels</h3>
                         <form method="post" action="registrar.php">
